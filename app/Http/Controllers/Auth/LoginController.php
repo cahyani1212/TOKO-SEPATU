@@ -18,26 +18,32 @@ class LoginController extends Controller
     {
         // Validasi input
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|string', // Ubah validasi jika Anda mengizinkan login dengan username
             'password' => 'required',
         ]);
 
+        // Data untuk login (bisa email atau username)
+        $credentials = ['email' => $request->email, 'password' => $request->password];
+
         // Mencoba login
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Jika berhasil, redirect ke dashboard
-            return redirect()->route('dashboard');
+        if (Auth::attempt($credentials)) {
+            // Jika berhasil, redirect ke halaman yang diinginkan (intended) atau dashboard
+            return redirect()->intended(route('dashboard'));
         }
 
-        // Jika gagal, kembali ke form login dengan pesan error
-        return redirect()->back()->withErrors([
-            'email' => 'Email atau password tidak valid.',
-        ])->withInput();
+        // Jika gagal, kembali ke form login dengan pesan error dan input sebelumnya
+        return redirect()->back()
+            ->withErrors(['email' => 'Email atau password tidak valid.'])
+            ->withInput($request->only('email'));
     }
 
     // Menghandle logout
     public function logout(Request $request)
     {
+        // Proses logout
         Auth::logout();
+
+        // Redirect ke halaman login setelah logout
         return redirect()->route('login');
     }
 }

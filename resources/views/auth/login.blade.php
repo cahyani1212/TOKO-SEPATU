@@ -178,6 +178,11 @@
                 transform: translateY(0);
             }
         }
+        @if($errors->any())
+            <div class="alert alert-danger">
+            {{ $errors->first() }}
+          </div>
+    @endif
     </style>
 </head>
 <body>
@@ -190,7 +195,7 @@
             @csrf
             <div class="form-group">
                 <label for="email">Username</label>
-                <input type="email" name="email" id="email" placeholder="Enter your username" required>
+                <input type="text" name="email" id="email" placeholder="Enter your username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
