@@ -20,9 +20,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 // Resource Route untuk Product (CRUD otomatis di-generate oleh Laravel)
 Route::resource('products', ProductController::class);
 
-// Rute tambahan untuk proses penjualan produk
+/// Rute tambahan untuk proses penjualan produk
 Route::get('products/{product}/sell', [ProductController::class, 'sell'])->name('products.sell');
-Route::post('products/{product}/sell', [ProductController::class, 'processSell'])->name('products.processSell');
 
-// Route khusus untuk menyimpan transaksi penjualan produk
-Route::post('products/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
+// Route untuk menyimpan transaksi penjualan produk
+Route::post('products/{product}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
