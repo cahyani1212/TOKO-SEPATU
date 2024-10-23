@@ -18,7 +18,7 @@ class LoginController extends Controller
     {
         // Validasi input
         $request->validate([
-            'email' => 'required|string', // Ubah validasi jika Anda mengizinkan login dengan username
+            'email' => 'required|string|email', // Ubah validasi jika Anda mengizinkan login dengan username
             'password' => 'required',
         ]);
 
