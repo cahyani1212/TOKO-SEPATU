@@ -55,41 +55,38 @@
                 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
-                        <label for="id-produk" class="block text-gray-700">Id produk</label>
-                        <input type="text" id="id-produk" name="id" class="w-full p-2 border border-gray-300 rounded mt-1" value="50" readonly>
-                    </div>
-                    <div class="mb-4">
-                        <label for="id-kategori" class="block text-gray-700">Id kategori</label>
-                        <input type="text" id="id-kategori" name="id" class="w-full p-2 border border-gray-300 rounded mt-1" value="50" readonly>
-                    </div>
-                    <div class="mb-4">
                         <label for="nama-produk" class="block text-gray-700">Nama produk</label>
-                        <input type="text" id="nama-produk" name="name" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                        <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
                         <label for="deskripsi-produk" class="block text-gray-700">Deskripsi produk</label>
-                        <input type="text" id="deskripsi-produk" name="description" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                        <input type="text" id="deskripsi" name="deskripsi" class="w-full p-2 border border-gray-300 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
                         <label for="ukuran" class="block text-gray-700">Ukuran</label>
-                        <input type="number" id="ukuran" name="price" class="w-full p-2 border border-pink-500 rounded mt-1" required>
+                        <input type="number" id="ukuran" name="ukuran" class="w-full p-2 border border-pink-500 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
                         <label for="warna" class="block text-gray-700">Warna</label>
-                        <input type="text" id="warna" name="price" class="w-full p-2 border border-pink-500 rounded mt-1" required>
+                        <input type="text" id="warna" name="warna" class="w-full p-2 border border-pink-500 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
                         <label for="stok" class="block text-gray-700">stok</label>
-                        <input type="number" id="stok" name="price" class="w-full p-2 border border-pink-500 rounded mt-1" required>
+                        <input type="number" id="stok" name="stok" class="w-full p-2 border border-pink-500 rounded mt-1" required>
+                    </div>
+                    <div class="mb-4">
+                    <label for="harga" class="block text-gray-700">Harga</label>
+                    <input type="number" id="harga" name="harga" class="w-full p-2 border border-gray-300 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
                         <label for="foto-produk" class="block text-gray-700">Foto produk</label>
                         <div class="flex items-center">
-                            <input type="file" id="foto-produk" name="image" class="w-full p-2 border border-gray-300 rounded mt-1">
-                            <span class="ml-2 text-gray-500">Tidak ada file yang dipilih</span>
+                            <input type="file" id="image" name="image" class="w-full p-2 border border-gray-300 rounded mt-1">
+                            <span class="ml-2 text-gray-500"></span>
                     </div>
                     </div>
                     </div>
+                    
                     <button type="submit" class="w-full bg-purple-700 text-white p-2 rounded mt-4">TAMBAH PRODUK</button>
                 </form>
             </div>
