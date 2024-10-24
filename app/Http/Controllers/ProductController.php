@@ -162,4 +162,15 @@ public function storeSale(Request $request, $id)
     // Redirect kembali ke halaman produk dengan pesan sukses
     return redirect()->route('products.index')->with('success', 'Produk berhasil dijual!');
 }
+public function destroy($id)
+    {
+        // Cari barang berdasarkan id
+        $product = Product::findOrFail($id);
+
+        // Hapus barang dari database
+        $product->delete();
+
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect()->route('products.index')->with('success', 'Barang berhasil dihapus.');
+    }
 }

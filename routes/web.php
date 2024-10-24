@@ -34,3 +34,5 @@ Route::post('products/{product}/sell', [ProductController::class, 'storeSale'])-
 
 // Rute untuk dashboard dengan middleware auth
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
