@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_jual', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id')->constrained('products')->onDelete('cascade'); // Hubungkan dengan tabel produk
+            $table->id(); // Primary key otomatis
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade'); // Foreign key ke tabel products
             $table->integer('jumlah'); // Jumlah produk yang dijual
             $table->timestamps(); // Menyimpan created_at dan updated_at
         });
