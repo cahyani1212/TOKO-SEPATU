@@ -6,6 +6,7 @@ use App\Http\Controllers\kategoricontroller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 
+
 // Route untuk menampilkan form login
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 
@@ -16,6 +17,7 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::resource('/kategori', kategoricontroller::class);
+
 // Rute untuk dashboard dengan middleware auth
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
@@ -27,3 +29,6 @@ Route::get('products/{product}/sell', [ProductController::class, 'sell'])->name(
 
 // Route untuk menyimpan transaksi penjualan produk
 Route::post('products/{product}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
+Route::get('reno',function(){
+    return view('Kategori.renof');
+});
