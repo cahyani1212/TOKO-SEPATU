@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\kategoricontroller;
+use App\Http\Controllers\Kategoricontroller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -18,21 +18,12 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 // Rute untuk dashboard dengan middleware auth
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
-Route::resource('/kategori', kategoricontroller::class);
-// Rute untuk dashboard dengan middleware auth
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-
+// Rute Resource untuk kategori
+Route::resource('/kategori', Kategoricontroller::class);
 
 // Resource Route untuk Product (CRUD otomatis di-generate oleh Laravel)
 Route::resource('products', ProductController::class);
 
-/// Rute tambahan untuk proses penjualan produk
+// Rute tambahan untuk proses penjualan produk
 Route::get('products/{product}/sell', [ProductController::class, 'sell'])->name('products.sell');
-
-// Route untuk menyimpan transaksi penjualan produk
 Route::post('products/{product}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
-
-// Rute untuk dashboard dengan middleware auth
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');

@@ -84,7 +84,7 @@
                                 <tr class="border-b hover:bg-gray-100">
                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                     <td class="px-4 py-2">{{ $product->id }}</td>
-                                    <td class="px-4 py-2">{{ $product->kategori_id }}</td>
+                                    <td class="px-4 py-2">{{ $product->id_kategori }}</td>
                                     <td class="px-4 py-2">{{ $product->name }}</td>
                                     <td class="px-4 py-2">{{ $product->description }}</td>
                                     <td class="px-4 py-2">{{ $product->ukuran }}</td>
