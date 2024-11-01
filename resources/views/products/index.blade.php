@@ -1,61 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-</head>
-
-<body class="bg-gray-100">
-    <div class="flex">
-        <!-- Sidebar -->
-        <div class="w-1/5 bg-white h-screen p-5 shadow-lg">
-            <div class="flex items-center mb-10">
-                <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white">
-                    <i class="fas fa-user"></i>
-                </div>
-                <span class="ml-3 text-lg font-semibold">Dashboard</span>
-            </div>
-            <ul>
-                <li class="mb-4">
-                    <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                        <i class="fas fa-home mr-3"></i>
-                        Home
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a class="flex items-center text-gray-700 hover:text-pink-500" href="{{ route('products.index') }}">
-                        <i class="fas fa-box mr-3"></i>
-                        Products
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                        <i class="fas fa-file-alt mr-3"></i>
-                        Report
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                        <i class="bi bi-key-fill mr-3"></i>
-                        Change password
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                        <i class="fas fa-sign-out-alt mr-3"></i>
-                        Logout
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Main Content -->
-        <div class="w-4/5 p-6">
+@section('content')
+    <div class="container">
+        <div class="card border-0 shadow-sm rounded">
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold">Produk</h2>
@@ -63,12 +10,11 @@
                         Produk</a>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto">
+                    <table class="min-w-full table-auto table-border">
                         <thead class="bg-gray-200">
                             <tr>
                                 <th class="px-4 py-2 text-left text-gray-600">No</th>
-                                <th class="px-4 py-2 text-left text-gray-600">Id Produk</th>
-                                <th class="px-4 py-2 text-left text-gray-600">Id Kategori</th>
+                                <th class="px-4 py-2 text-left text-gray-600">Kategori</th>
                                 <th class="px-4 py-2 text-left text-gray-600">Nama Produk</th>
                                 <th class="px-4 py-2 text-left text-gray-600">Deskripsi</th>
                                 <th class="px-4 py-2 text-left text-gray-600">Ukuran</th>
@@ -80,13 +26,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($products as $no => $product)
                                 <tr class="border-b hover:bg-gray-100">
-                                    <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                    <td class="px-4 py-2">{{ $product->id }}</td>
-                                    <td class="px-4 py-2">{{ $product->kategori_id }}</td>
-                                    <td class="px-4 py-2">{{ $product->name }}</td>
-                                    <td class="px-4 py-2">{{ $product->description }}</td>
+                                    <td class="px-4 py-2">{{ $no + 1 }}</td>
+                                    <td class="px-4 py-2">{{ $product->Category->nama_kategori }}</td>
+                                    <td class="px-4 py-2">{{ $product->nama_produk }}</td>
+                                    <td class="px-4 py-2">{{ $product->deskripsi }}</td>
                                     <td class="px-4 py-2">{{ $product->ukuran }}</td>
                                     <td class="px-4 py-2">{{ $product->warna }}</td>
                                     <td class="px-4 py-2">{{ $product->stok }}</td>
@@ -120,6 +65,4 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>
+@endsection

@@ -9,21 +9,27 @@ class Product extends Model
 {
     use HasFactory;
 
-    // Jika tabel di database bernama 'products', Anda tidak perlu mendefinisikan $table.
-    // Jika tabel bernama lain, misalnya 'product', Anda perlu menambahkan ini:
     protected $table = 'products';
 
-    // Mengaktifkan pengisian massal
     protected $fillable = [
-        'id',
-        'name',
-        'description',
+        'id_kategori',
+        'nama_produk',
+        'deskripsi',
         'price',
-        'image',
+        'foto_produk',
         'warna',
         'ukuran',
         'stok',
-        'created_at',
-        'updated_at', // Perbaiki dari 'update_at' menjadi 'updated_at'
     ];
+
+    public $timestamps = true; // Secara otomatis mengelola created_at dan updated_at
+
+    /**
+     * Relasi ke model Category.
+     * Setiap produk memiliki satu kategori.
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_kategori');
+    }
 }

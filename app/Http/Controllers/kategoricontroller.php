@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
+use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -12,7 +12,7 @@ class kategoricontroller extends Controller
     public function index() : View
     {
         //get all products
-        $kategori = Kategori::all();
+        $kategori = Category::all();
 
         //render view with products
         return view('kategori.index', compact('kategori'));
@@ -42,7 +42,7 @@ class kategoricontroller extends Controller
         ]);
 
         //create product
-        Kategori::create([
+        Category::create([
             'nama_kategori' => $request->nama_kategori,
         ]);
 
@@ -58,7 +58,7 @@ class kategoricontroller extends Controller
     public function edit(string $id): View
     {
         //get product by ID
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Category::findOrFail($id);
 
         //render view with product
         return view('kategori.edit', compact('kategori'));
@@ -79,7 +79,7 @@ class kategoricontroller extends Controller
         ]);
 
         //get product by ID
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Category::findOrFail($id);
 
             //update product without image
             $kategori->update([
@@ -100,7 +100,7 @@ class kategoricontroller extends Controller
     public function destroy($id): RedirectResponse
     {
         //get product by ID
-        $kategori = Kategori::findOrFail($id);
+        $kategori = Category::findOrFail($id);
         
         $kategori->delete();
 
