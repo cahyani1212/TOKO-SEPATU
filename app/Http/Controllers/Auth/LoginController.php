@@ -18,14 +18,13 @@ class LoginController extends Controller
     {
         // Validasi input
         $request->validate([
-            'email' => 'required|string|email', // Ubah validasi jika Anda mengizinkan login dengan username
+            'email' => 'required|string', // Ubah validasi jika Anda mengizinkan login dengan username
             'password' => 'required',
         ]);
 
         // Data untuk login (bisa email atau username)
         $credentials = ['email' => $request->email, 'password' => $request->password];
 
-        // Mencoba login
         if (Auth::attempt($credentials)) {
             // Jika berhasil, redirect ke halaman yang diinginkan (intended) atau dashboard
             return redirect()->intended(route('dashboard'));
@@ -36,6 +35,7 @@ class LoginController extends Controller
             ->withErrors(['email' => 'Email atau password tidak valid.'])
             ->withInput($request->only('email'));
     }
+
 
     // Menghandle logout
     public function logout(Request $request)

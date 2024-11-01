@@ -16,10 +16,14 @@ Route::post('login', [LoginController::class, 'login']);
 // Route untuk menangani proses logout
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
+// Rute untuk dashboard dengan middleware auth
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
 Route::resource('/kategori', kategoricontroller::class);
 
 // Rute untuk dashboard dengan middleware auth
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
 
 // Resource Route untuk Product (CRUD otomatis di-generate oleh Laravel)
 Route::resource('products', ProductController::class);
@@ -29,6 +33,12 @@ Route::get('products/{product}/sell', [ProductController::class, 'sell'])->name(
 
 // Route untuk menyimpan transaksi penjualan produk
 Route::post('products/{product}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
-Route::get('reno',function(){
+
+Route::get('kategoribarang',function(){
     return view('Kategori.renof');
 });
+
+
+// Rute untuk dashboard dengan middleware auth
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+

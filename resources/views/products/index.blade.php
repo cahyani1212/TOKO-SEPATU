@@ -74,6 +74,7 @@
                                 <th class="px-4 py-2 text-left text-gray-600">Ukuran</th>
                                 <th class="px-4 py-2 text-left text-gray-600">Warna</th>
                                 <th class="px-4 py-2 text-left text-gray-600">Stok</th>
+                                <th class="px-4 py-2 text-left text-gray-600">Harga</th>
                                 <th class="px-4 py-2 text-left text-gray-600">Foto Produk</th>
                                 <th class="px-4 py-2 text-left text-gray-600">Aksi</th>
                             </tr>
@@ -89,6 +90,7 @@
                                     <td class="px-4 py-2">{{ $product->ukuran }}</td>
                                     <td class="px-4 py-2">{{ $product->warna }}</td>
                                     <td class="px-4 py-2">{{ $product->stok }}</td>
+                                    <td class="px-4 py-2">{{ $product->price }}</td>
                                     <td class="px-4 py-2">
                                         @if ($product->foto_produk)
                                             <img src="{{ asset('images/' . $product->foto_produk) }}"

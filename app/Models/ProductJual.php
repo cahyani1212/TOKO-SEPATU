@@ -9,7 +9,9 @@ class ProductJual extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_brg_keluar', 'product_id', 'jumlah', 'warna', 'ukuran', 'image', 'tgl_keluar', 'harga_satuan', 'total_harga', 'nama_brg'];
+    protected $table = 'product_jual';
+
+    protected $fillable = ['product_id', 'jumlah', 'warna', 'ukuran', 'image', 'tgl_keluar', 'harga_satuan', 'total_harga', 'nama_brg', 'catatan'];
 
     // Hubungan dengan model Product
     public function product()
