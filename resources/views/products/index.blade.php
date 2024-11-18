@@ -42,7 +42,7 @@
                 <li class="mb-4">
                     <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
                         <i class="bi bi-key-fill mr-3"></i>
-                        Change password
+                        User
                     </a>
                 </li>
                 <li class="mb-4">

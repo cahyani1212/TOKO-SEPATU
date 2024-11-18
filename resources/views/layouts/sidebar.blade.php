@@ -3,11 +3,11 @@
         <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white">
             <i class="fas fa-user"></i>
         </div>
-        <span class="ml-3 text-lg font-semibold">Dashboard</span>
+        <span class="ml-3 text-lg font-semibold">Upik Cabon Store</span>
     </div>
     <ul>
         <li class="mb-4">
-            <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
+            <a class="flex items-center text-gray-700 hover:text-blue-500" href="#">
                 <i class="fas fa-home mr-3"></i>
                 Home
             </a>
@@ -33,7 +33,7 @@
         <li class="mb-4">
             <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
                 <i class="bi bi-key-fill mr-3"></i>
-                Change password
+                User
             </a>
         </li>
         <li class="mb-4">

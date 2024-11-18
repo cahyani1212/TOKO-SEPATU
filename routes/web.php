@@ -27,3 +27,6 @@ Route::resource('products', ProductController::class);
 // Rute tambahan untuk proses penjualan produk
 Route::get('products/{product}/sell', [ProductController::class, 'sell'])->name('products.sell');
 Route::post('products/{product}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
+
+// Rute untuk menampilkan data user
+Route::get('/data-user', [DataUserController::class, 'index'])->middleware('auth')->name('data-user');

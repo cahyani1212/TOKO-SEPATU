@@ -68,7 +68,7 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    // Mengupdate data produk
+    // Mengedit data produk
     public function update(Request $request, $id)
     {
         $request->validate([
