@@ -70,6 +70,15 @@
                         <input type="text" id="name" name="name" class="w-full p-2 border border-blue-500 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
+                        <label for="kategori" class="block text-black-700">Kategori</label>
+                        <select id="kategori" name="id_kategori" class="w-full p-2 border border-blue-500 rounded mt-1" required>
+                            <option value="">Pilih Kategori</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->nama_kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
                         <label for="deskripsi" class="block text-black-700">Deskripsi Produk</label>
                         <input type="text" id="deskripsi" name="deskripsi" class="w-full p-2 border border-blue-500 rounded mt-1" required>
                     </div>
@@ -92,7 +101,7 @@
                     <div class="mb-4">
                         <label for="image" class="block text-black-700">Foto produk</label>
                         <div class="flex items-center">
-                            <input type="file" id="image" name="image" class="w-full p-2 border border-blue-500 rounded mt-1" required>
+                            <input type="file" id="image" name="image" class="w-full p-2 border border-blue-500 rounded mt-1">
                             <span class="ml-2 text-black-500"></span>
                         </div>
                     </div>

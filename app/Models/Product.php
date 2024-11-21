@@ -12,15 +12,24 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'name',
-        'description',
+        'id_kategori',
+        'nama_produk',
+        'deskripsi',
         'price',
-        'image',
+        'foto_produk',
         'warna',
         'ukuran',
         'stok',
-        // 'created_at', 'updated_at' tidak perlu disertakan jika timestamps diatur otomatis
     ];
 
     public $timestamps = true; // Secara otomatis mengelola created_at dan updated_at
+
+    /**
+     * Relasi ke model Category.
+     * Setiap produk memiliki satu kategori.
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_kategori');
+    }
 }

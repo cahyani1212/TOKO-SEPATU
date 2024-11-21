@@ -19,7 +19,8 @@ class ProductController extends Controller
     // Method untuk menampilkan form membuat produk baru
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', compact('categories'));
     }
 
     // Method untuk menyimpan produk baru ke database
@@ -27,35 +28,32 @@ class ProductController extends Controller
     {
         // Validasi input
         $request->validate([
-            'name' => 'required|string|max:255',
-            'id_kategori' => 'required|integer', // Validasi untuk kategori
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name' => 'required|string|max:255', // Validasi untuk kategori
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'warna' => 'required|string|max:255',
             'ukuran' => 'required|string|max:255',
             'stok' => 'required|integer',
         ]);
 
-        // Membuat produk baru
-        $product = new Product();
-        $product->id_kategori = $request->id_kategori; // Menggunakan id_kategori
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->warna = $request->warna;
-        $product->ukuran = $request->ukuran;
-        $product->stok = $request->stok;
 
         // Jika ada file foto yang di-upload
-        if ($request->hasFile('image')) {
+        $imageName = null;
+        if ($request->file('image')) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
-            $product->image = $imageName;
         }
-
-        // Simpan produk ke database
-        $product->save();
+        Product::create([
+            'nama_produk' => $request->name,
+            'deskripsi' => $request->deskripsi,
+            'price' => $request->harga,
+            'warna' => $request->warna,
+            'ukuran' => $request->ukuran,
+            'stok' => $request->stok,
+            'foto_produk' => $imageName, // Use foto_produk instead of image
+            'id_kategori' => $request->id_kategori,
+        ]);
 
         // Redirect kembali ke halaman produk dengan pesan sukses
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
@@ -65,7 +63,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.edit', compact('product'));
+        $categories = Category::all();
+        return view('products.edit', compact('product','categories'));
     }
 
     // Mengedit data produk
@@ -73,36 +72,42 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'id_kategori' => 'required|integer', // Validasi untuk kategori
-            'description' => 'nullable|string',
-            'ukuran' => 'nullable|string',
-            'warna' => 'nullable|string',
+            'description' => 'required|string',
+            'ukuran' => 'required',
+            'warna' => 'required|string',
             'stok' => 'required|integer',
-            'price' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Konsistensi nama
+            'price' => 'required|integer',
+            'foto_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $product = Product::findOrFail($id);
-        $product->name = $request->name;
-        $product->id_kategori = $request->id_kategori; // Konsistensi nama
-        $product->description = $request->description;
+
+        // Handle file upload
+        if ($request->file('foto_produk')) {
+            // Hapus file gambar lama jika ada
+            if ($product->foto_produk) {
+                unlink(public_path('images/' . $product->foto_produk));
+            }
+
+            // Simpan file gambar baru
+            $imageName = time() . '.' . $request->foto_produk->extension();
+            $request->foto_produk->move(public_path('images'), $imageName);
+            $product->foto_produk = $imageName;
+        }
+
+        // Update data produk
+        $product->nama_produk = $request->name;
+        $product->deskripsi = $request->description;
         $product->ukuran = $request->ukuran;
         $product->warna = $request->warna;
         $product->stok = $request->stok;
         $product->price = $request->price;
-
-        // Menangani upload foto jika ada
-        if ($request->hasFile('image')) { // Konsistensi nama
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('images'), $imageName);
-            $product->image = $imageName; // Konsistensi nama
-        }
-
+        $product->id_kategori = $request->id_kategori;
         $product->save();
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
-    
+
     // Method untuk menampilkan form penjualan produk
     public function sell($id)
     {
