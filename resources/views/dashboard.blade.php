@@ -10,10 +10,13 @@
         <!-- Sidebar -->
         <div class="w-1/5 bg-white h-screen p-5">
             <div class="flex items-center mb-10">
-                <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white">
-                    <i class="fas fa-user"></i>
-                </div>
-                <span class="ml-3 text-lg font-semibold">Upik Cabon Store</span>
+                <!-- Logo -->
+                <img 
+                    src="https://i.pinimg.com/736x/76/9e/ad/769eaded1b6f4ca3349e1733928da9b9.jpg" 
+                    alt="Upik Cabon Logo" 
+                    class="w-12 h-12 rounded-full mr-3 object-cover"
+                />
+                <span class="text-lg font-semibold text-gray-700">Upik Cabon Store</span>
             </div>
             <ul>
                 <li class="mb-4">
@@ -29,17 +32,17 @@
                     </a>
                 </li>
                 <li class="mb-4">
-                     <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                         <i class="fas fa-file-alt mr-3"></i>
-                          Report
+                    <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
+                        <i class="fas fa-file-alt mr-3"></i>
+                        Report
                     </a>
                 </li>
                 <li class="mb-4">
-                <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                    <i class="bi bi-key-fill mr-3"></i>
-                    User
-                </a>
-            </li>
+                    <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
+                        <i class="bi bi-people-fill mr-3"></i>
+                        User
+                    </a>
+                </li>
                 <li class="mb-4">
                     <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
                         <i class="fas fa-sign-out-alt mr-3"></i>
