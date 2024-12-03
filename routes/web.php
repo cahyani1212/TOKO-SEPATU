@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Kategoricontroller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 
 
 // Route untuk menampilkan form login
@@ -36,5 +37,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-// Rute untuk menampilkan data user
-Route::get('/data-user', [DataUserController::class, 'index'])->middleware('auth')->name('data-user');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
