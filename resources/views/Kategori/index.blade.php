@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h3 class="text-center my-4">Kategori</h3>
+    <h3 class="text-center my-4 bg-gradient-to-r from-red-700 to-gray-900 text-white p-6 rounded-lg mb-8 shadow-xl">Kategori</h3>
     <div class="card border-0 shadow-sm rounded">
         <div class="card-body">
-            <a href="{{ route('kategori.create') }}" class="btn btn-md btn-success mb-3">TAMBAH KATEGORI</a>
+            <a href="{{ route('kategori.create') }}" class="btn btn-md mb-3 bg-gradient-to-r from-red-700 to-gray-900 text-white p-2 rounded-lg mb-8 shadow-xl"><i class="fas fa-plus mr-3"></i>TAMBAH KATEGORI</a>
             @if($kategori->isEmpty())
                 <div class="alert alert-danger">Data Products belum tersedia.</div>
             @else

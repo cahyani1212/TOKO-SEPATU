@@ -1,49 +1,53 @@
-<div class="w-64 bg-white h-screen p-5 shadow-lg fixed">
-    <!-- Header Sidebar -->
-    <div class="flex items-center mb-8">
-        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white text-xl">
-            <i class="fas fa-user"></i>
-        </div>
-        <span class="ml-4 text-xl font-bold text-gray-800">Upik Cabon Store</span>
+<!-- Sidebar -->
+<div class=" bg-gradient-to-b from-gray-900 to-red-700 h-screen p-4 text-white shadow-2xl">
+    <div class="flex items-center mb-10">
+        <!-- Logo -->
+        <img src="https://i.pinimg.com/736x/76/9e/ad/769eaded1b6f4ca3349e1733928da9b9.jpg" alt="Upik Cabon Logo"
+            class="w-12 h-12 rounded-full mr-3 object-cover border-2 border-red-300" />
+        <span class="text-lg font-bold">Upik Cabon Store</span>
     </div>
-
-    <!-- Menu -->
-    <ul class="space-y-4">
-        <li>
-            <a class="flex items-center text-gray-700 hover:text-blue-500 transition-colors" href="#">
-                <i class="fas fa-home text-lg mr-4"></i>
-                <span class="text-sm font-medium">Home</span>
+    <ul>
+        <li class="mb-4">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="{{route('dashboard')}}">
+                <i class="fas fa-home mr-3"></i>
+                Home
             </a>
         </li>
-        <li>
-            <a class="flex items-center text-gray-700 hover:text-pink-500 transition-colors" href="{{ route('products.index') }}">
-                <i class="fas fa-box text-lg mr-4"></i>
-                <span class="text-sm font-medium">Products</span>
+        <li class="mb-4">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200"
+                href="{{ route('products.index') }}">
+                <i class="fas fa-box mr-3"></i>
+                Products
             </a>
         </li>
-        <li>
-            <a class="flex items-center text-gray-700 hover:text-pink-500 transition-colors" href="{{ route('kategori.index') }}">
-                <i class="fas fa-tags text-lg mr-4"></i>
-                <span class="text-sm font-medium">Kategori</span>
+        <li class="mb-4">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200"
+                href="{{ route('kategori.index') }}">
+                <i class="fas fa-tags mr-3"></i>
+                kategori
             </a>
         </li>
-        <li>
-            <a class="flex items-center text-gray-700 hover:text-pink-500 transition-colors" href="#">
-                <i class="fas fa-file-alt text-lg mr-4"></i>
-                <span class="text-sm font-medium">Report</span>
+        <li class="mb-4">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="#">
+                <i class="fas fa-file-alt mr-3"></i>
+                Report
             </a>
         </li>
-        <li>
-            <a class="flex items-center text-gray-700 hover:text-pink-500 transition-colors" href="#">
-                <i class="fas fa-user-cog text-lg mr-4"></i>
-                <span class="text-sm font-medium">User</span>
+        <li class="mb-4">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="#">
+                <i class="bi bi-people-fill mr-3"></i>
+                User
             </a>
         </li>
-        <li>
-            <a class="flex items-center text-gray-700 hover:text-red-500 transition-colors" href="#">
-                <i class="fas fa-sign-out-alt text-lg mr-4"></i>
-                <span class="text-sm font-medium">Logout</span>
-            </a>
+        <li class="mb-4">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit"
+                    class="flex items-center text-white hover:text-red-300 transition-all duration-200">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Logout
+                </button>
+            </form>
         </li>
     </ul>
 </div>

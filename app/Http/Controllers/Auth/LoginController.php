@@ -70,9 +70,8 @@ class LoginController extends Controller
 
         // Regenerasi token CSRF
         $request->session()->regenerateToken();
-
-        // Redirect ke halaman login
-        return redirect()->route('login');
+        // Redirect ke halaman login setelah logout
+        return redirect('/login');
     }
     public function showRegistrationForm()
     {
