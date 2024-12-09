@@ -4,122 +4,152 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductJual;
 use Illuminate\Http\Request;
-use App\Models\ProductJual; // Pastikan model ProductJual diimport
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    // Method untuk menampilkan daftar produk
+    // Method untuk mendapatkan daftar produk
     public function index()
     {
-        $products = Product::all(); // Mengambil semua produk
-        return view('products.index', compact('products')); // Mengirimkan data produk ke view
+        $products = Product::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'Produk berhasil ditemukan',
+            'data' => $products
+        ], 200);
     }
 
-    // Method untuk menampilkan form membuat produk baru
-    public function create()
+    // Method untuk menampilkan detail produk berdasarkan ID
+    public function show($id)
     {
-        $categories = Category::all();
-        return view('products.create', compact('categories'));
+        $product = Product::findOrFail($id);
+        return response()->json([
+            'status' => true,
+            'message' => 'Produk berhasil ditemukan',
+            'data' => $product
+        ], 200);
     }
 
     // Method untuk menyimpan produk baru ke database
     public function store(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'name' => 'required|string|max:255', // Validasi untuk kategori
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'warna' => 'required|string|max:255',
             'ukuran' => 'required|string|max:255',
             'stok' => 'required|integer',
+            'id_kategori' => 'required|exists:categories,id',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        // Jika ada file foto yang di-upload
         $imageName = null;
         if ($request->file('image')) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
         }
-        Product::create([
+
+        $product = Product::create([
             'nama_produk' => $request->name,
             'deskripsi' => $request->deskripsi,
             'price' => $request->harga,
             'warna' => $request->warna,
             'ukuran' => $request->ukuran,
             'stok' => $request->stok,
-            'foto_produk' => $imageName, // Use foto_produk instead of image
+            'foto_produk' => $imageName,
             'id_kategori' => $request->id_kategori,
         ]);
 
-        // Redirect kembali ke halaman produk dengan pesan sukses
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
+        return response()->json([
+            'status' => true,
+            'message' => 'Produk berhasil ditambahkan',
+            'data' => $product
+        ], 201);
     }
 
-    // Menampilkan form untuk mengedit produk
-    public function edit($id)
-    {
-        $product = Product::findOrFail($id);
-        $categories = Category::all();
-        return view('products.edit', compact('product','categories'));
-    }
-
-    // Mengedit data produk
+    // Method untuk memperbarui produk berdasarkan ID
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'ukuran' => 'required',
-            'warna' => 'required|string',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'warna' => 'required|string|max:255',
+            'ukuran' => 'required|string|max:255',
             'stok' => 'required|integer',
-            'price' => 'required|integer',
-            'foto_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'id_kategori' => 'required|exists:categories,id',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $product = Product::findOrFail($id);
 
-        // Handle file upload
-        if ($request->file('foto_produk')) {
-            // Hapus file gambar lama jika ada
+        $imageName = $product->foto_produk;
+        if ($request->file('image')) {
             if ($product->foto_produk) {
                 unlink(public_path('images/' . $product->foto_produk));
             }
-
-            // Simpan file gambar baru
-            $imageName = time() . '.' . $request->foto_produk->extension();
-            $request->foto_produk->move(public_path('images'), $imageName);
-            $product->foto_produk = $imageName;
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
         }
 
-        // Update data produk
-        $product->nama_produk = $request->name;
-        $product->deskripsi = $request->description;
-        $product->ukuran = $request->ukuran;
-        $product->warna = $request->warna;
-        $product->stok = $request->stok;
-        $product->price = $request->price;
-        $product->id_kategori = $request->id_kategori;
-        $product->save();
+        $product->update([
+            'nama_produk' => $request->name,
+            'deskripsi' => $request->deskripsi,
+            'price' => $request->harga,
+            'warna' => $request->warna,
+            'ukuran' => $request->ukuran,
+            'stok' => $request->stok,
+            'foto_produk' => $imageName,
+            'id_kategori' => $request->id_kategori,
+        ]);
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        return response()->json([
+            'status' => true,
+            'message' => 'Produk berhasil diperbarui',
+            'data' => $product
+        ], 200);
     }
 
-    // Method untuk menampilkan form penjualan produk
-    public function sell($id)
+    // Method untuk menghapus produk berdasarkan ID
+    public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.jual', compact('product'));
+
+        if ($product->foto_produk) {
+            unlink(public_path('images/' . $product->foto_produk));
+        }
+
+        $product->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Produk berhasil dihapus'
+        ], 204);
     }
 
-    // Method untuk menyimpan penjualan ke database
+    // Method untuk menyimpan data penjualan produk
     public function storeSale(Request $request, $id)
     {
-        // Validasi input
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'jumlah' => 'required|integer|min:1',
             'tgl_keluar' => 'required|date',
             'warna' => 'required|string',
@@ -127,51 +157,44 @@ class ProductController extends Controller
             'catatan' => 'nullable|string',
         ]);
 
-        // Temukan produk berdasarkan ID dari parameter $id
-        $product = Product::findOrFail($id);
-
-        // Periksa apakah stok mencukupi
-        if ($request->jumlah > $product->stok) {
-            return redirect()->back()->with('error', 'Stok tidak mencukupi.');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        // Ambil harga satuan dari produk
+        $product = Product::findOrFail($id);
+
+        if ($request->jumlah > $product->stok) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Stok tidak mencukupi'
+            ], 400);
+        }
+
         $harga_satuan = $product->price;
         $total_harga = $request->jumlah * $harga_satuan;
 
-        // Simpan data ke tabel product_jual
-        ProductJual::create([
-            'product_id' => $product->id, // Menggunakan ID dari produk yang ditemukan
+        $sale = ProductJual::create([
+            'product_id' => $product->id,
             'jumlah' => $request->jumlah,
             'tgl_keluar' => $request->tgl_keluar,
-            'harga_satuan' => $harga_satuan, // Gunakan harga satuan dari produk
-            'total_harga' => $total_harga, // Hitung total harga berdasarkan jumlah dan harga satuan
+            'harga_satuan' => $harga_satuan,
+            'total_harga' => $total_harga,
             'warna' => $request->warna,
             'ukuran' => $request->ukuran,
-            'catatan' => $request->catatan, // Jika catatan ada, akan tersimpan
-            'nama_brg' => $product->name, // Ambil nama barang dari produk
-            'created_at' => now(),
-            'updated_at' => now(),
+            'catatan' => $request->catatan,
         ]);
 
-        // Kurangi stok produk
         $product->stok -= $request->jumlah;
-        $product->save(); // Simpan perubahan stok
+        $product->save();
 
-        // Redirect kembali ke halaman produk dengan pesan sukses
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dijual!');
-    }
-
-    // Method untuk menghapus produk dari database
-    public function destroy($id)
-    {
-        // Cari barang berdasarkan id
-        $product = Product::findOrFail($id);
-
-        // Hapus barang dari database
-        $product->delete();
-
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('products.index')->with('success', 'Barang berhasil dihapus.');
+        return response()->json([
+            'status' => true,
+            'message' => 'Produk berhasil dijual',
+            'data' => $sale
+        ], 201);
     }
 }

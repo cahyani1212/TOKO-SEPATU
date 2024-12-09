@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('product_jual', function (Blueprint $table) {
             $table->id(); // Primary key untuk tabel product_jual
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade'); // Foreign key untuk produk
-            $table->string('nama_brg'); // Menggunakan 'jumlah' sesuai dengan controller
-            $table->integer('jumlah'); // Menggunakan 'jumlah' sesuai dengan controller
+            $table->string('nama_brg'); // Nama barang
+            $table->integer('jumlah'); // Jumlah barang
             $table->string('warna'); // Kolom warna sesuai dengan data produk
             $table->string('ukuran'); // Kolom ukuran sesuai dengan data produk
             $table->date('tgl_keluar'); // Kolom tanggal keluar
@@ -24,7 +24,6 @@ return new class extends Migration
             $table->text('catatan')->nullable(); // Kolom catatan
             $table->timestamps(); // Menambahkan created_at dan updated_at
         });
-        
     }
 
     /**
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_juals');
+        Schema::dropIfExists('product_jual');
     }
 };

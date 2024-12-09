@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
+    protected $table = 'products'; // Nama tabel di database
 
     protected $fillable = [
         'id_kategori',
@@ -22,7 +22,7 @@ class Product extends Model
         'stok',
     ];
 
-    public $timestamps = true; // Secara otomatis mengelola created_at dan updated_at
+    public $timestamps = true; // Mengelola kolom created_at dan updated_at secara otomatis
 
     /**
      * Relasi ke model Category.
