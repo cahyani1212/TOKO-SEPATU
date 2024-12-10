@@ -10,80 +10,46 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    /**
-     * Menampilkan halaman login.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
+     // Menampilkan halaman login
+     public function showLoginForm()
+     {
+         return view('auth.login');
+     }
+ 
+     // Menghandle login
+     public function login(Request $request)
+     {
+         // Validasi input
+         $request->validate([
+             'email' => 'required|string', // Ubah validasi jika Anda mengizinkan login dengan username
+             'password' => 'required',
+         ]);
+ 
+         // Data untuk login (bisa email atau username)
+         $credentials = ['email' => $request->email, 'password' => $request->password];
+ 
+         // Mencoba login
+         if (Auth::attempt($credentials)) {
+             // Jika berhasil, redirect ke halaman yang diinginkan (intended) atau dashboard
+             return redirect()->intended(route('dashboard'));
+         }
+ 
+         // Jika gagal, kembali ke form login dengan pesan error dan input sebelumnya
+         return redirect()->back()
+             ->withErrors(['email' => 'Email atau password tidak valid.'])
+             ->withInput($request->only('email'));
+     }
+ 
+     // Menghandle logout
+     public function logout(Request $request)
+     {
+         // Proses logout
+         Auth::logout();
+ 
+         // Redirect ke halaman login setelah logout
+         return redirect()->route('login');
+     }
 
-    /**
-     * Menghandle proses login.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function login(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'email' => 'required|email', // Pastikan email valid
-            'password' => 'required|string|min:6', // Tambahkan validasi panjang password
-        ]);
-
-        // Data untuk login
-        $credentials = $request->only('email', 'password');
-
-        // Coba autentikasi
-        if (Auth::attempt($credentials)) {
-            // Regenerasi sesi untuk keamanan
-            $request->session()->regenerate();
-
-            // Redirect ke halaman yang diinginkan atau dashboard
-            return redirect()->intended(route('dashboard'));
-        }
-
-        // Jika gagal, kembali ke form login dengan pesan error
-        return back()
-            ->withErrors([
-                'email' => 'Email atau password tidak valid.',
-            ])
-            ->withInput($request->only('email'));
-    }
-
-    /**
-     * Menghandle proses logout.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function logout(Request $request)
-    {
-        // Logout pengguna
-        Auth::logout();
-
-        // Invalidate sesi
-        $request->session()->invalidate();
-
-        // Regenerasi token CSRF
-        $request->session()->regenerateToken();
-        // Redirect ke halaman login setelah logout
-        return redirect('/login');
-    }
-    public function showRegistrationForm()
-    {
-        return view('auth.register');
-    }
-
-    /**
-     * Menghandle proses registrasi.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function register(Request $request)
 {
     $request->validate([

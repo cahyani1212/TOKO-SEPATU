@@ -85,7 +85,7 @@
                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                     <td class="px-4 py-2">{{ $product->id }}</td>
                                     <td class="px-4 py-2">{{ $product->id_kategori }}</td>
-                                    <td class="px-4 py-2">{{ $product->name }}</td>
+                                    <td class="px-4 py-2">{{ $product->nama_produk}}</td>
                                     <td class="px-4 py-2">{{ $product->description }}</td>
                                     <td class="px-4 py-2">{{ $product->ukuran }}</td>
                                     <td class="px-4 py-2">{{ $product->warna }}</td>

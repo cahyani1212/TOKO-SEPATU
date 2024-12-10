@@ -12,11 +12,10 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
-
-    'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
-    ],
+'defaults' => [
+    'guard' => env('AUTH_GUARD', 'web'), // Gunakan variabel .env dengan fallback default 'web'
+    'passwords' => env('AUTH_PASSWORD_BROKER', 'users'), // Gunakan variabel .env dengan fallback default 'users'
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -60,16 +59,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+    'users' => [
+        'driver' => 'eloquent',  // Menggunakan Eloquent ORM untuk model User
+        'model' => App\Models\User::class,  // Model yang digunakan
+    ],
+],
+
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
 
     /*
     |--------------------------------------------------------------------------

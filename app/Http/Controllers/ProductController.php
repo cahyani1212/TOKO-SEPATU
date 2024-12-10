@@ -14,22 +14,14 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return response()->json([
-            'status' => true,
-            'message' => 'Produk berhasil ditemukan',
-            'data' => $products
-        ], 200);
+        return view('products.index', compact('products')); // Return view with products
     }
 
     // Method untuk menampilkan detail produk berdasarkan ID
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return response()->json([
-            'status' => true,
-            'message' => 'Produk berhasil ditemukan',
-            'data' => $product
-        ], 200);
+        return view('products.show', compact('product')); // Return view with product detail
     }
 
     // Method untuk menyimpan produk baru ke database
@@ -47,11 +39,7 @@ class ProductController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validasi gagal',
-                'errors' => $validator->errors()
-            ], 422);
+            return back()->withErrors($validator)->withInput(); // Return back with validation errors
         }
 
         $imageName = null;
@@ -71,11 +59,7 @@ class ProductController extends Controller
             'id_kategori' => $request->id_kategori,
         ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Produk berhasil ditambahkan',
-            'data' => $product
-        ], 201);
+        return redirect()->route('products.index')->with('status', 'Produk berhasil ditambahkan');
     }
 
     // Method untuk memperbarui produk berdasarkan ID
@@ -93,11 +77,7 @@ class ProductController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validasi gagal',
-                'errors' => $validator->errors()
-            ], 422);
+            return back()->withErrors($validator)->withInput(); // Return back with validation errors
         }
 
         $product = Product::findOrFail($id);
@@ -122,11 +102,7 @@ class ProductController extends Controller
             'id_kategori' => $request->id_kategori,
         ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Produk berhasil diperbarui',
-            'data' => $product
-        ], 200);
+        return redirect()->route('products.index')->with('status', 'Produk berhasil diperbarui');
     }
 
     // Method untuk menghapus produk berdasarkan ID
@@ -140,10 +116,7 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Produk berhasil dihapus'
-        ], 204);
+        return redirect()->route('products.index')->with('status', 'Produk berhasil dihapus');
     }
 
     // Method untuk menyimpan data penjualan produk
@@ -158,20 +131,13 @@ class ProductController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validasi gagal',
-                'errors' => $validator->errors()
-            ], 422);
+            return back()->withErrors($validator)->withInput(); // Return back with validation errors
         }
 
         $product = Product::findOrFail($id);
 
         if ($request->jumlah > $product->stok) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Stok tidak mencukupi'
-            ], 400);
+            return back()->with('status', 'Stok tidak mencukupi'); // Return back with error message
         }
 
         $harga_satuan = $product->price;
@@ -191,10 +157,7 @@ class ProductController extends Controller
         $product->stok -= $request->jumlah;
         $product->save();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Produk berhasil dijual',
-            'data' => $sale
-        ], 201);
+        return redirect()->route('products.index')->with('status', 'Produk berhasil dijual');
     }
 }
+
