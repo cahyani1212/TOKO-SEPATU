@@ -14,13 +14,13 @@
                 <h2 class="text-2xl font-semibold mb-5 text-gray-700">Dashboard Overview</h2>
                 <div class="grid grid-cols-3 gap-6">
                     <!-- Card 1: Barang Tersedia -->
-                    <a href="#"
+                    <a href="{{route('products.index')}}"
                         class="relative bg-blue-100 rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-blue-600 group">
                         <div class="absolute inset-0 -z-10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
                             style="background: linear-gradient(45deg, red, black); filter: blur(10px);">
                         </div>
                         <i class="fas fa-box-open text-4xl mb-3"></i>
-                        <h2 class="text-2xl font-bold">10</h2>
+                        <h2 class="text-2xl font-bold">{{$product}}</h2>
                         <p class="text-sm">Barang Tersedia</p>
                     </a>
                     <!-- Card 2: Barang Habis -->

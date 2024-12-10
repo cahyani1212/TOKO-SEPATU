@@ -1,38 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penjualan Produk</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-</head>
-<body class="bg-gray-100">
+@extends('layouts.layout')
 
-<div class="flex">
-    <!-- Sidebar -->
-    <div class="w-1/5 bg-white h-screen p-5 shadow-lg">
-        <!-- Sidebar Content -->
-        <div class="flex items-center mb-10">
-            <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white">
-                <i class="fas fa-user"></i>
-            </div>
-            <span class="ml-3 text-lg font-semibold">Dashboard</span>
-        </div>
-        <ul>
-            <li class="mb-4">
-                <a class="flex items-center text-gray-700 hover:text-pink-500" href="{{ route('products.index') }}">
-                    <i class="fas fa-box mr-3"></i> Products
-                </a>
-            </li>
-            <!-- Other menu items -->
-        </ul>
-    </div>
-
+@section('content')
     <!-- Main Content -->
-    <div class="w-4/5 p-6">
+    <div class=" p-6">
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h2 class="text-2xl font-bold mb-6">Penjualan - Informasi Produk</h2>
             
@@ -115,7 +85,4 @@
             </script>
         </div>
     </div>
-</div>
-
-</body>
-</html>
+@endsection

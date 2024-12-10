@@ -8,7 +8,7 @@
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Produk</h2>
-                        <a href="{{ route('products.create') }}" class="bg-pink-500 text-white px-4 py-2 rounded-lg">Tambah Produk</a>
+                        <a href="{{ route('products.create') }}" class="btn btn-md mb-3 bg-gradient-to-r from-red-700 to-gray-900 text-white p-2 rounded-lg mb-8 shadow-xl"><i class="fas fa-plus mr-3"></i>Tambah Produk</a>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full table-auto table-border">

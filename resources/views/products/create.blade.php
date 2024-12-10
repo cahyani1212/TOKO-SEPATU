@@ -1,66 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-    </style>
-</head>
-<body class="bg-gray-100">
-    <div class="flex">
-        <!-- Sidebar -->
-        <aside class="w-1/5 bg-white h-screen p-5 shadow-lg">
-            <div class="flex items-center mb-10">
-                <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white">
-                    <i class="fas fa-user"></i>
-                </div>
-                <span class="ml-3 text-lg font-semibold">Dashboard</span>
-            </div>
-            <nav>
-                <ul>
-                    <li class="mb-4">
-                        <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                            <i class="fas fa-home mr-3"></i>
-                            Home
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a class="flex items-center text-gray-700 hover:text-pink-500" href="{{ route('products.index') }}">
-                            <i class="fas fa-box mr-3"></i>
-                            Products
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                            <i class="fas fa-file-alt mr-3"></i>
-                            Report
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                            <i class="bi bi-key-fill mr-3"></i>
-                            Change password
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                            <i class="fas fa-sign-out-alt mr-3"></i>
-                            Logout
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+@extends('layouts.layout')
+
+@section('content')
         <!-- Main Content -->
-        <main class="w-4/5 p-10">
+        <main class=" ">
             <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg mx-auto">
                 <h2 class="text-2xl font-bold mb-6">Tambah Produk</h2>
                 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
@@ -111,6 +53,4 @@
                 </form>
             </div>
         </main>
-    </div>
-</body>
-</html>
+@endsection
