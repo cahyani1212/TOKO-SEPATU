@@ -12,6 +12,9 @@ use Telegram\Bot\Api;
 // Route untuk login
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
+Route::get('register', [LoginController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [LoginController::class, 'register']);
+// Route untuk menangani proses logout
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // Rute dashboard dengan middleware auth

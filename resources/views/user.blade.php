@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/data-user.css') }}">
+<link rel="stylesheet" href="{{ asset('css/user.css') }}">
 @endsection
 
 @section('content')
@@ -45,5 +45,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/data-user.js') }}"></script>
+<script src="{{ asset('js/user.js') }}"></script>
 @endsection
