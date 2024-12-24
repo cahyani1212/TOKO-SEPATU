@@ -13,6 +13,8 @@ use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\HitungController;
+use App\Http\Controllers\PenjualanController;
+
 
 // Rute untuk login dan register
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -32,9 +34,15 @@ Route::middleware(['auth'])->group(function () {
     // Resource untuk produk
     Route::resource('products', ProductController::class);
 
+    Route::resource('penjualan', PenjualanController::class);
+    Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('penjualan.create');
+    Route::get('/penjualan/create/{productId}', [PenjualanController::class, 'create'])->name('penjualan.create');
+
+
     // Rute tambahan untuk proses penjualan produk
-    Route::get('products/{product}/sell', [ProductController::class, 'sell'])->name('products.sell');
-    Route::post('products/{product}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
+    Route::get('/products/{id}/sell', [ProductController::class, 'showSaleForm'])->name('products.sellForm');
+    Route::post('/products/{id}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
+    
 
     // Rute untuk data user
     Route::get('/datauser', [DataUserController::class, 'index'])->name('datauser');
@@ -58,3 +66,4 @@ Route::get('/hitung', [HitungController::class, 'index'])->name('hitung.index');
 // Rute TPK
 Route::get('/tpk', [KriteriaController::class, 'index'])->name('tpk.index');
 Route::post('/tpk/hitung', [KriteriaController::class, 'hitungTerlaris'])->name('tpk.hitung');
+
