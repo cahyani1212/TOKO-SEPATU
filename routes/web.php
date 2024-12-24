@@ -14,6 +14,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\HitungController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\AHPController; // Pastikan AHPController diimport dengan benar
 
 
 // Rute untuk login dan register
@@ -38,12 +39,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('penjualan.create');
     Route::get('/penjualan/create/{productId}', [PenjualanController::class, 'create'])->name('penjualan.create');
 
-
     // Rute tambahan untuk proses penjualan produk
     Route::get('/products/{id}/sell', [ProductController::class, 'showSaleForm'])->name('products.sellForm');
     Route::post('/products/{id}/sell', [ProductController::class, 'storeSale'])->name('products.storeSale');
     
-
     // Rute untuk data user
     Route::get('/datauser', [DataUserController::class, 'index'])->name('datauser');
 });
@@ -67,3 +66,9 @@ Route::get('/hitung', [HitungController::class, 'index'])->name('hitung.index');
 Route::get('/tpk', [KriteriaController::class, 'index'])->name('tpk.index');
 Route::post('/tpk/hitung', [KriteriaController::class, 'hitungTerlaris'])->name('tpk.hitung');
 
+// Rute untuk AHP
+Route::get('/ahp', [AHPController::class, 'index'])->name('ahp.index');
+Route::post('/ahp/store', [AHPController::class, 'store'])->name('ahp.store'); // Perbaikan rute untuk menyimpan nilai perbandingan AHP
+Route::post('/ahp/calculate', [AHPController::class, 'calculateAHP'])->name('ahp.calculate'); // Rute untuk menghitung bobot AHP
+Route::get('/hitung', [AHPController::class, 'hitung'])->name('ahp.hitung');
+Route::get('/tpk/ahp', [AHPController::class, 'index'])->name('tpk.ahp');

@@ -42,9 +42,11 @@
         </table>
 
         <!-- Tombol Hitung -->
-        <form action="{{ route('tpk.hitung') }}" method="POST" class="mt-6">
-            @csrf
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">Hitung Produk Terlaris</button>
+        <form action="{{ route('tpk.ahp') }}" method="GET" class="mt-6">
+    @csrf
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">Hitung Bobot AHP</button>
+</form>
+
         </form>
     </div>
 
