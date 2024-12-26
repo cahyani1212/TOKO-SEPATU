@@ -38,7 +38,7 @@
                 </li>
                 <li class="mb-4">
                     <a class="flex items-center text-gray-700 hover:text-pink-500" href="#">
-                        <i class="bi bi-key-fill mr-3"></i> User
+                        <i class="bi bi-key-fill mr-3"></i> Change password
                     </a>
                 </li>
                 <li class="mb-4">
@@ -78,8 +78,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-gray-700">Nama Produk</label>
-                            <input type="text" name="name" value="{{ old('name', $product->nama_produk) }}"
-                                class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                            <input type="text" name="name" value="{{ old('name', $product->name) }}" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                         </div>
                         <div>
                             <label class="block text-gray-700">Kategori</label>
@@ -95,42 +94,34 @@
                         </div>
                         <div>
                             <label class="block text-gray-700">Deskripsi</label>
-                            <textarea name="description"
-                                class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">{{ old('description', $product->deskripsi) }}</textarea>
+                            <textarea name="description" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">{{ old('description', $product->description) }}</textarea>
                         </div>
                         <div>
                             <label class="block text-gray-700">Ukuran</label>
-                            <input type="text" name="ukuran" value="{{ old('ukuran', $product->ukuran) }}"
-                                class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                            <input type="text" name="ukuran" value="{{ old('ukuran', $product->ukuran) }}" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                         </div>
                         <div>
                             <label class="block text-gray-700">Warna</label>
-                            <input type="text" name="warna" value="{{ old('warna', $product->warna) }}"
-                                class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                            <input type="text" name="warna" value="{{ old('warna', $product->warna) }}" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                         </div>
                         <div>
                             <label class="block text-gray-700">Stok</label>
-                            <input type="number" name="stok" value="{{ old('stok', $product->stok) }}"
-                                class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                            <input type="number" name="stok" value="{{ old('stok', $product->stok) }}" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                         </div>
                         <div>
                             <label class="block text-gray-700">Harga</label>
-                            <input type="number" name="price" value="{{ old('price', $product->price) }}"
-                                class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                            <input type="number" name="price" value="{{ old('price', $product->price) }}" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                         </div>
                         <div>
                             <label class="block text-gray-700">Foto Produk</label>
-                            <input type="file" name="foto_produk"
-                                class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+                            <input type="file" name="foto_produk" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                             @if ($product->foto_produk)
-                                <img src="{{ asset('images/' . $product->foto_produk) }}" alt="{{ $product->name }}"
-                                    class="mt-2 rounded-md" style="max-width: 100px;">
+                                <img src="{{ asset('images/' . $product->foto_produk) }}" alt="{{ $product->name }}" class="mt-2 rounded-md" style="max-width: 100px;">
                             @endif
                         </div>
                     </div>
                     <div class="flex justify-end mt-6">
-                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg">Simpan
-                            Perubahan</button>
+                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>

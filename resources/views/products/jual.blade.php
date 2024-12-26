@@ -22,8 +22,8 @@
                 <tbody>
                     <tr class="border-b hover:bg-gray-100">
                         <td class="px-4 py-2">{{ $product->id }}</td>
-                        <td class="px-4 py-2">{{ $product->name }}</td>
-                        <td class="px-4 py-2">{{ $product->description }}</td>
+                        <td class="px-4 py-2">{{ $product->nama_produk }}</td>
+                        <td class="px-4 py-2">{{ $product->deskripsi }}</td>
                         <td class="px-4 py-2">{{ $product->ukuran }}</td>
                         <td class="px-4 py-2">{{ $product->warna }}</td>
                         <td class="px-4 py-2">{{ number_format($product->price, 0, ',', '.') }} IDR</td>
@@ -39,7 +39,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700">Nama Barang</label>
-                        <input type="text" name="nama_brg" value="{{ $product->name }}" required class="border rounded px-2 py-1 w-full" >
+                        <input type="text" name="nama_brg" value="{{ $product->nama_produk }}" required class="border rounded px-2 py-1 w-full" readonly>
                     </div>
                     <div>
                         <label class="block text-gray-700">Warna</label>
