@@ -33,12 +33,15 @@
                 Report
             </a>
         </li>
+        @if (Auth::user()->role == 'admin')
         <li class="mb-4">
-            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="#">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="{{ route('user.index') }}">
                 <i class="bi bi-people-fill mr-3"></i>
                 User
             </a>
         </li>
+        
+        @endif
         <li class="mb-4">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

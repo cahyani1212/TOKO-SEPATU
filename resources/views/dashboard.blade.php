@@ -44,13 +44,13 @@
                         <p class="text-sm">Kategori</p>
                     </a>
                     <!-- Card 4: User -->
-                    <a href="#"
+                    <a href="{{route('user.index')}}"
                         class="relative bg-yellow-100 rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-yellow-600 group">
                         <div class="absolute inset-0 -z-10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
                             style="background: linear-gradient(45deg, red, black); filter: blur(10px);">
                         </div>
                         <i class="fas fa-users text-4xl mb-3"></i>
-                        <h2 class="text-2xl font-bold">35</h2>
+                        <h2 class="text-2xl font-bold">{{$user}}</h2>
                         <p class="text-sm">User</p>
                     </a>
 

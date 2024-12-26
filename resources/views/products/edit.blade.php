@@ -87,7 +87,7 @@
                                 class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                                 <option value="">Pilih Kategori</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->nama_kategori }}" {{ old('id_kategori', $product->nama_kategori) == $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}" {{ old('id_kategori', $product->id_kategori) == $category->id ? 'selected' : '' }}>
                                         {{ $category->nama_kategori }}
                                     </option>
                                 @endforeach
