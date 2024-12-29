@@ -6,8 +6,8 @@
 
     <h3>Bobot Kriteria (AHP):</h3>
     <ul class="list-group mb-4">
-        <li class="list-group-item">Jumlah Terjual: <strong>{{ $bobot['jumlah'] }}</strong></li>
-        <li class="list-group-item">Harga Jual: <strong>{{ $bobot['harga_satuan'] }}</strong></li>
+        <li class="list-group-item">Jumlah Terjual: <strong>{{ $bobot['total_jumlah'] }}</strong></li>
+        <li class="list-group-item">Harga Jual: <strong>{{ $bobot['total_harga_satuan'] }}</strong></li>
     </ul>
 
     <h3>Hasil Perhitungan (SAW):</h3>
@@ -26,8 +26,8 @@
             @foreach ($produk as $p)
             <tr>
                 <td>{{ $p['nama_brg'] }}</td>
-                <td>{{ $p['jumlah'] }}</td>
-                <td>Rp {{ number_format($p['harga_satuan'], 2, ',', '.') }}</td>
+                <td>{{ $p['total_jumlah'] }}</td>
+                <td>Rp {{ number_format($p['total_harga_satuan'], 2, ',', '.') }}</td>
                 <td>{{ round($p['normalisasi_jumlah'], 4) }}</td>
                 <td>{{ round($p['normalisasi_harga'], 4) }}</td>
                 <td><strong>{{ round($p['skor'], 4) }}</strong></td>

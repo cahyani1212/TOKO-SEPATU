@@ -17,24 +17,24 @@ class AHPController extends Controller
 
         // Langkah 1: Tentukan Bobot Kriteria dengan AHP
         $bobot = [
-            'jumlah' => 0.75, // Bobot untuk Jumlah Terjual
-            'harga_satuan' => 0.25      // Bobot untuk Harga Jual
+            'total_jumlah' => 0.75, // Bobot untuk Jumlah Terjual
+            'total_harga_satuan' => 0.25      // Bobot untuk Harga Jual
         ];
 
         // Langkah 2: Normalisasi dan Hitung Skor SAW
         $produkArray = $produk->toArray(); // Mengonversi koleksi menjadi array untuk menggunakan array_column()
 
-        $maxJumlahTerjual = max(array_column($produkArray, 'jumlah'));
-        $maxHargaJual = max(array_column($produkArray, 'harga_satuan'));
+        $maxJumlahTerjual = max(array_column($produkArray, 'total_jumlah'));
+        $maxHargaJual = max(array_column($produkArray, 'total_harga_satuan'));
 
         foreach ($produkArray as &$p) {
             // Normalisasi
-            $p['normalisasi_jumlah'] = $p['jumlah'] / $maxJumlahTerjual;
-            $p['normalisasi_harga'] = $p['harga_satuan'] / $maxHargaJual;
+            $p['normalisasi_jumlah'] = $p['total_jumlah'] / $maxJumlahTerjual;
+            $p['normalisasi_harga'] = $p['total_harga_satuan'] / $maxHargaJual;
 
             // Hitung Skor Akhir (SAW)
-            $p['skor'] = ($bobot['jumlah'] * $p['normalisasi_jumlah']) +
-                         ($bobot['harga_satuan'] * $p['normalisasi_harga']);
+            $p['skor'] = ($bobot['total_jumlah'] * $p['normalisasi_jumlah']) +
+                         ($bobot['total_harga_satuan'] * $p['normalisasi_harga']);
         }
 
         // Urutkan berdasarkan skor tertinggi

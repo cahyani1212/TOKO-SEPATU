@@ -12,6 +12,9 @@ class AhpKriteria extends Model
 
     public function getProduk()
     {
-        return $this->all(); // Mengambil semua data produk
+        // Menjumlahkan kolom jumlah dan harga_satuan, lalu mengelompokkan berdasarkan nama_brg
+        return $this->selectRaw('nama_brg, SUM(jumlah) as total_jumlah, SUM(harga_satuan) as total_harga_satuan')
+                    ->groupBy('nama_brg')
+                    ->get();
     }
 }
