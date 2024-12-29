@@ -16,6 +16,7 @@ class ProductController extends Controller
         $products = Product::all();
         return view('products.index', compact('products')); // Mengembalikan view dengan produk
     }
+
     public function sell($id)
     {
         $product = Product::findOrFail($id);
@@ -54,7 +55,7 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'nama_produk' => $request->nama,
+            'nama_produk' => $request->name,
             'deskripsi' => $request->deskripsi,
             'price' => $request->harga,
             'warna' => $request->warna,
@@ -110,9 +111,23 @@ class ProductController extends Controller
             'catatan' => $request->catatan,
         ]);
 
+        // Update stok produk setelah penjualan
         $product->stok -= $request->jumlah;
         $product->save();
 
         return redirect()->route('products.index')->with('status', 'Produk berhasil dijual');
+    }
+
+    // Method untuk menghapus produk
+    public function destroy($id)
+    {
+        // Cari produk berdasarkan ID
+        $product = Product::findOrFail($id);
+
+        // Jika produk ditemukan, hapus
+        $product->delete();
+
+        // Redirect ke halaman produk dengan status
+        return redirect()->route('products.index')->with('status', 'Produk berhasil dihapus');
     }
 }
