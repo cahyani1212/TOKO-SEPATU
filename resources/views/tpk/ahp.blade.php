@@ -1,49 +1,43 @@
 @extends('layouts.layout')
 
 @section('content')
-<div class="container">
-    <h2>Perbandingan Kriteria AHP</h2>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Produk Terlaris (Metode AHP dan SAW)</h1>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    <h3>Bobot Kriteria (AHP):</h3>
+    <ul class="list-group mb-4">
+        <li class="list-group-item">Jumlah Terjual: <strong>{{ $bobot['jumlah'] }}</strong></li>
+        <li class="list-group-item">Harga Jual: <strong>{{ $bobot['harga_satuan'] }}</strong></li>
+    </ul>
 
-    <form action="{{ route('ahp.store') }}" method="POST">
-        @csrf
+    <h3>Hasil Perhitungan (SAW):</h3>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nama Produk</th>
+                <th>Jumlah Terjual</th>
+                <th>Harga Jual</th>
+                <th>Normalisasi Jumlah</th>
+                <th>Normalisasi Harga</th>
+                <th>Skor Akhir</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($produk as $p)
+            <tr>
+                <td>{{ $p['nama_brg'] }}</td>
+                <td>{{ $p['jumlah'] }}</td>
+                <td>Rp {{ number_format($p['harga_satuan'], 2, ',', '.') }}</td>
+                <td>{{ round($p['normalisasi_jumlah'], 4) }}</td>
+                <td>{{ round($p['normalisasi_harga'], 4) }}</td>
+                <td><strong>{{ round($p['skor'], 4) }}</strong></td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-        <!-- Dropdown Kriteria 1 -->
-        <div class="form-group">
-            <label for="kriteria_1">Kriteria 1</label>
-            <select class="form-control" id="kriteria_1" name="kriteria_1" required>
-                @foreach($kriteria as $k)
-                    <option value="{{ $k->id }}">{{ $k->nama_kriteria }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <!-- Dropdown Kriteria 2 -->
-        <div class="form-group">
-            <label for="kriteria_2">Kriteria 2</label>
-            <select class="form-control" id="kriteria_2" name="kriteria_2" required>
-                @foreach($kriteria as $k)
-                    <option value="{{ $k->id }}">{{ $k->nama_kriteria }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <!-- Input untuk nilai perbandingan -->
-        <div class="form-group">
-            <label for="nilai">Nilai Perbandingan</label>
-            <input type="number" class="form-control" id="nilai" name="nilai" min="1" step="0.1" required>
-        </div>
-
-        <!-- Tombol Simpan -->
-        <button type="submit" class="btn btn-primary">Simpan Perbandingan</button>
-    </form>
-
-    <!-- Tombol untuk menghitung bobot AHP -->
-    <a href="{{ route('ahp.hitung') }}" class="btn btn-success mt-3">Hitung Bobot AHP</a>
+    <h3>Produk Paling Laris:</h3>
+    <p><strong>{{ $produk[0]['nama_brg'] }}</strong> dengan skor <strong>{{ round($produk[0]['skor'], 4) }}</strong>.
+    </p>
 </div>
 @endsection

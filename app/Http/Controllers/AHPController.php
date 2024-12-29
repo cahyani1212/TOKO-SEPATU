@@ -2,96 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AhpKriteria;
 use App\Models\Kriteria;
 use App\Models\PerbandinganKriteria; // Pastikan model ini ada
 use Illuminate\Http\Request;
 
 class AHPController extends Controller
 {
-    // Menampilkan halaman utama untuk AHP
     public function index()
     {
-        // Mendapatkan data kriteria atau data lainnya yang diperlukan
-        $kriteria = Kriteria::all();
+        // Ambil data produk dari model
+        $produkModel = new AhpKriteria();
+        $produk = $produkModel->getProduk(); // Memanggil metode getProduk()
 
-        // Mengirim data ke view
-        return view('tpk.ahp', compact('kriteria'));
-    }
+        // Langkah 1: Tentukan Bobot Kriteria dengan AHP
+        $bobot = [
+            'jumlah' => 0.75, // Bobot untuk Jumlah Terjual
+            'harga_satuan' => 0.25      // Bobot untuk Harga Jual
+        ];
 
-    // Hitung bobot kriteria dengan AHP
-    public function calculateAHP()
-    {
-        $kriteria = Kriteria::all();
-        $n = $kriteria->count();
+        // Langkah 2: Normalisasi dan Hitung Skor SAW
+        $produkArray = $produk->toArray(); // Mengonversi koleksi menjadi array untuk menggunakan array_column()
 
-        if ($n <= 1) {
-            return redirect()->back()->with('error', 'Jumlah kriteria tidak cukup untuk perhitungan AHP.');
+        $maxJumlahTerjual = max(array_column($produkArray, 'jumlah'));
+        $maxHargaJual = max(array_column($produkArray, 'harga_satuan'));
+
+        foreach ($produkArray as &$p) {
+            // Normalisasi
+            $p['normalisasi_jumlah'] = $p['jumlah'] / $maxJumlahTerjual;
+            $p['normalisasi_harga'] = $p['harga_satuan'] / $maxHargaJual;
+
+            // Hitung Skor Akhir (SAW)
+            $p['skor'] = ($bobot['jumlah'] * $p['normalisasi_jumlah']) +
+                         ($bobot['harga_satuan'] * $p['normalisasi_harga']);
         }
 
-        // Matriks perbandingan
-        $matriks = [];
-        foreach ($kriteria as $row) {
-            foreach ($kriteria as $col) {
-                // Periksa apakah nilai perbandingan kriteria ada
-                $nilai = PerbandinganKriteria::where('kriteria_1', $row->id)
-                    ->where('kriteria_2', $col->id)
-                    ->value('nilai');
+        // Urutkan berdasarkan skor tertinggi
+        usort($produkArray, function ($a, $b) {
+            return $b['skor'] <=> $a['skor'];
+        });
 
-                // Jika tidak ada, tetapkan nilai default 1 untuk perbandingan diri sendiri
-                if (is_null($nilai) && $row->id == $col->id) {
-                    $nilai = 1;
-                }
-                // Jika nilai perbandingan kriteria tidak ditemukan, defaultkan ke 1
-                if (is_null($nilai)) {
-                    $nilai = 1;
-                }
-
-                $matriks[$row->id][$col->id] = $nilai;
-            }
-        }
-
-        // Normalisasi dan hitung bobot
-        $totalKolom = array_fill(0, $n, 0);
-        foreach ($matriks as $row) {
-            foreach ($row as $key => $value) {
-                $totalKolom[$key] += $value;
-            }
-        }
-
-        $bobot = [];
-        foreach ($matriks as $rowId => $row) {
-            $bobotRow = 0;
-            foreach ($row as $colId => $value) {
-                $normalized = $value / $totalKolom[$colId];
-                $bobotRow += $normalized;
-            }
-            $bobot[$rowId] = $bobotRow / $n;
-        }
-
-        // Simpan bobot ke tabel Kriteria
-        foreach ($bobot as $kriteriaId => $value) {
-            Kriteria::where('id', $kriteriaId)->update(['bobot' => $value]);
-        }
-
-        return redirect()->back()->with('status', 'Bobot kriteria berhasil dihitung!');
-    }
-
-    // Menyimpan perbandingan kriteria
-    public function store(Request $request)
-    {
-        $request->validate([
-            'kriteria_1' => 'required|exists:kriteria,id',
-            'kriteria_2' => 'required|exists:kriteria,id',
-            'nilai' => 'required|numeric|min:1',
+        // Kirim data ke view
+        return view('tpk.ahp', [
+            'produk' => $produkArray,
+            'bobot' => $bobot
         ]);
-
-        // Simpan data perbandingan
-        PerbandinganKriteria::create([
-            'kriteria_1' => $request->kriteria_1,
-            'kriteria_2' => $request->kriteria_2,
-            'nilai' => $request->nilai,
-        ]);
-
-        return redirect()->back()->with('success', 'Perbandingan kriteria berhasil disimpan!');
     }
 }

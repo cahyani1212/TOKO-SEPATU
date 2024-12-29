@@ -33,4 +33,9 @@ class Kriteria extends Model
 
         return $produkKelompok;
     }
+
+    // public function getProduk()
+    // {
+    //     return $this->all(); // Mengambil semua data produk
+    // }
 }
