@@ -19,17 +19,17 @@
             <table class="min-w-full table-auto">
                 <thead class="bg-gray-200">
                     <tr>
-                        <th class="px-4 py-2 text-left text-gray-600">No</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Id Produk</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Id Kategori</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Nama Produk</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Deskripsi</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Ukuran</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Warna</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Stok</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Harga</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Foto Produk</th>
-                        <th class="px-4 py-2 text-left text-gray-600">Aksi</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">No</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Id Produk</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Id Kategori</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Nama Produk</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Deskripsi</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Ukuran</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Warna</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Stok</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Harga</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Foto Produk</th>
+                        <th class="px-4 py-2 text-left text-gray-600 text-sm">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,12 +67,14 @@
                                 </div>
                             </td>
                         </tr>
+
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

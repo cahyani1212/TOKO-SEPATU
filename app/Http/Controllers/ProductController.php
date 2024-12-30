@@ -17,6 +17,7 @@ class ProductController extends Controller
         $products = Product::all();
         return view('products.index', compact('products')); // Mengembalikan view dengan produk
     }
+
     public function sell($id)
     {
         $product = Product::findOrFail($id);
@@ -164,6 +165,7 @@ class ProductController extends Controller
             'catatan' => $request->catatan,
         ]);
 
+        // Update stok produk setelah penjualan
         $product->stok -= $request->jumlah;
         $product->save();
 
