@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductJual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class ProductController extends Controller
 {
@@ -54,7 +55,7 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'nama_produk' => $request->nama,
+            'nama_produk' => $request->name,
             'deskripsi' => $request->deskripsi,
             'price' => $request->harga,
             'warna' => $request->warna,
@@ -66,6 +67,59 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('status', 'Produk berhasil ditambahkan');
     }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id); // Ambil data produk berdasarkan ID
+        $categories = Category::all(); // Ambil semua kategori
+        return view('products.edit', compact('product', 'categories')); // Kirim ke view
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_kategori' => 'required|exists:categories,id',
+            'nama_produk' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
+            'warna' => 'required|string|max:50',
+            'ukuran' => 'required|string|max:50',
+            'foto_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $product = Product::findOrFail($id);
+
+        $data = $request->all();
+
+        // Jika ada foto baru diupload
+        if ($request->hasFile('foto_produk')) {
+            $path = $request->file('foto_produk')->store('produk', 'public');
+            $data['foto_produk'] = $path;
+        }
+
+        $product->update($data);
+
+        return redirect()->route('products.index')->with('status', 'Produk berhasil diperbarui!');
+    }
+    public function destroy($id)
+{
+    // Cari produk berdasarkan ID
+    $product = Product::findOrFail($id);
+
+    // Jika produk memiliki gambar, hapus gambar dari storage
+    if ($product->foto_produk && \Storage::exists($product->foto_produk)) {
+        \Storage::delete($product->foto_produk);
+    }
+
+    // Hapus produk
+    $product->delete();
+
+    // Redirect kembali dengan pesan sukses
+    return redirect()->route('products.index')->with('status', 'Produk berhasil dihapus!');
+}
+
 
     // Method untuk menampilkan form penjualan produk
     public function showSaleForm($id)
@@ -98,7 +152,7 @@ class ProductController extends Controller
         $harga_satuan = $product->price;
         $total_harga = $request->jumlah * $harga_satuan;
 
-        ProductJual::create([
+        $sale = ProductJual::create([
             'product_id' => $product->id,
             'jumlah' => $request->jumlah,
             'nama_brg' => $product->nama_produk,
@@ -112,6 +166,25 @@ class ProductController extends Controller
 
         $product->stok -= $request->jumlah;
         $product->save();
+
+        // Kirim pesan ke Telegram
+        $message = "📦 **Produk Terjual** 📦\n"
+            . "🆔 ID Produk: {$sale->product_id}\n"
+            . "📋 Nama Barang: {$sale->nama_brg}\n"
+            . "🎨 Warna: {$sale->warna}\n"
+            . "📐 Ukuran: {$sale->ukuran}\n"
+            . "💵 Harga Satuan: " . number_format($sale->harga_satuan, 0, ',', '.') . " IDR\n"
+            . "📦 Jumlah: {$sale->jumlah}\n"
+            . "💰 Total Harga: " . number_format($sale->total_harga, 0, ',', '.') . " IDR\n"
+            . "📅 Tanggal Keluar: {$sale->tgl_keluar}\n"
+            . (!empty($sale->catatan) ? "📝 Catatan: {$sale->catatan}" : '');
+
+
+        Telegram::sendMessage([
+            'chat_id' => env('TELEGRAM_CHAT_ID', ''),
+            'text' => $message,
+            'parse_mode' => 'Markdown', // Untuk format teks
+        ]);
 
         return redirect()->route('products.index')->with('status', 'Produk berhasil dijual');
     }

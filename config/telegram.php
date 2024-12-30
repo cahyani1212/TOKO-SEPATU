@@ -32,7 +32,8 @@ return [
     */
     'bots' => [
         'mybot' => [
-            'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR-BOT-TOKEN'),
+            'username'  => 'UPIKCABONSTORE_bot',
+            'token' => env('TELEGRAM_BOT_TOKEN', '7874135184:AAHKcTcgAeZ_d8NAiNMG3f1SQRw8KLaL95M'),
             'certificate_path' => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
             'webhook_ur l' => env('TELEGRAM_WEBHOOK_URL', 'YOUR-BOT-WEBHOOK-URL'),
             /*

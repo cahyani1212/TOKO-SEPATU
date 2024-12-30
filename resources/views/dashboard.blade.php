@@ -66,7 +66,7 @@
                     </a>
 
                     <!-- Card 6: Barang Keluar -->
-                    <a href="#"
+                    <a href="{{route('sales.index')}}"
                         class="relative bg-orange-100 rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-orange-600 group">
                         <div class="absolute inset-0 -z-10 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
                             style="background: linear-gradient(45deg, red, black); filter: blur(10px);">

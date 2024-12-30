@@ -5,11 +5,22 @@ namespace App\Http\Controllers;
 use Telegram\Bot\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Telegram;
 
 class TelegramBotController extends Controller
 {
     protected $telegram;
+    public function sendMessage()
+    {
+        $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
 
+        $response = $telegram->sendMessage([
+            'chat_id' => '@exampleGroup', // Ganti dengan chat ID atau username grup
+            'text' => 'Halo, ini pesan dari Laravel!',
+        ]);
+
+        return $response;
+    }
     // Konstruktor untuk inisialisasi Telegram API
     public function __construct()
     {
@@ -19,31 +30,55 @@ class TelegramBotController extends Controller
     {
         return $this->telegram->getUpdates();
     }
+    public function teleUpdate()
+    {
+        $updates = \Telegram\Bot\Laravel\Facades\Telegram::getUpdates();
+        dd($updates);
+    }
 
     // Method untuk memastikan bot aktif
     public function handle()
     {
         return response()->json(['status' => 'Bot handler is working!']);
     }
+    public function handleWebhook()
+{
+    $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
+
+    $updates = $telegram->getWebhookUpdate();
+    \Log::info($updates);
+    // Tangkap pesan pengguna
+    $chatId = $updates->getMessage()->getChat()->getId();
+    $text = $updates->getMessage()->getText();
+
+    // Kirim balasan
+    $telegram->sendMessage([
+        'chat_id' => $chatId,
+        'text' => "Anda mengirim pesan: $text",
+    ]);
+
+    return response()->json(['status' => 'ok']);
+}
+
 
     // Method untuk mengirim pesan
-    public function sendMessage(Request $request)
-    {
-        $chatId = $request->input('chat_id'); // ID chat penerima pesan
-        $message = $request->input('message'); // Pesan yang akan dikirim
+    // public function sendMessage(Request $request)
+    // {
+    //     $chatId = $request->input('chat_id'); // ID chat penerima pesan
+    //     $message = $request->input('message'); // Pesan yang akan dikirim
 
-        try {
-            $response = $this->telegram->sendMessage([
-                'chat_id' => $chatId,
-                'text' => $message,
-            ]);
+    //     try {
+    //         $response = $this->telegram->sendMessage([
+    //             'chat_id' => $chatId,
+    //             'text' => $message,
+    //         ]);
 
-            return response()->json(['status' => 'success', 'data' => $response]);
-        } catch (\Exception $e) {
-            Log::error('Telegram Bot Error: ' . $e->getMessage());
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
-        }
-    }
+    //         return response()->json(['status' => 'success', 'data' => $response]);
+    //     } catch (\Exception $e) {
+    //         Log::error('Telegram Bot Error: ' . $e->getMessage());
+    //         return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+    //     }
+    // }
 
     // Method untuk mendapatkan pembaruan menggunakan getUpdates
     public function getUpdates(Request $request)

@@ -26,7 +26,7 @@
             </a>
         </li>
         <li class="mb-4">
-            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="#">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="{{route('sales.index')}}">
                 <i class="fas fa-file-alt mr-3"></i>
                 Report
             </a>
@@ -41,7 +41,7 @@
         
         @endif
         <li class="mb-4">
-            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="#">
+            <a class="flex items-center text-white hover:text-red-300 transition-all duration-200" href="https://t.me/UPIKCABONSTORE_bot">
                 <i class="bi bi-telegram mr-3"></i>
                 TelegramBot
             </a>

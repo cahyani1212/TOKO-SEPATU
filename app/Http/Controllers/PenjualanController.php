@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
+use App\Models\ProductJual;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
     public function index()
     {
-        $penjualans = Penjualan::paginate(10);
-        return view('penjualan.index', compact('penjualans'));
+        $sales = ProductJual::latest()->paginate(10); // Ambil data penjualan terbaru dengan pagination
+        return view('sales.index', compact('sales'));
     }
 
     public function create()
@@ -24,10 +25,11 @@ class PenjualanController extends Controller
     }
 
     public function show($id)
-    {
-        $penjualan = Penjualan::findOrFail($id);
-        return view('penjualan.show', compact('penjualan'));
-    }
+{
+    $sale = ProductJual::findOrFail($id); // Ambil data penjualan berdasarkan ID
+    return view('sales.show', compact('sale'));
+}
+
 
     public function destroy($id)
     {

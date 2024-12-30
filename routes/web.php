@@ -77,6 +77,8 @@ Route::middleware(['auth'])->group(function () {
     // Rute untuk data user
     // Route::get('/datauser', [DataUserController::class, 'index'])->name('datauser');
 });
+Route::get('/send-message', [TelegramBotController::class, 'sendMessage']);
+Route::post('/telegram/webhook', [TelegramBotController::class, 'handleWebhook']);
 
 // Rute untuk Telegram Bot
 Route::post('/webhook', [TelegramBotController::class, 'handle']);
@@ -85,6 +87,7 @@ Route::post('/webhook', [TelegramBotController::class, 'handle']);
 // Route::get('/home', [PageController::class,'home'])->name('home');
 Route::group(['prefix' => 'telegram'], function(){
     Route::get('messages', [TelegramBotController::class, 'messages']);
+    Route::get('getUpdates', [TelegramBotController::class, 'teleUpdate']);
 });
 // Rute alternatif dan kriteria
 // Route::get('/alternatif', [AlternatifController::class, 'index'])->name('alternatif.index');
@@ -98,6 +101,8 @@ Route::group(['prefix' => 'telegram'], function(){
 // Rute TPK
 Route::get('/tpk', [KriteriaController::class, 'index'])->name('tpk.index');
 Route::post('/tpk/hitung', [KriteriaController::class, 'hitungTerlaris'])->name('tpk.hitung');
+Route::get('/sales', [PenjualanController::class, 'index'])->name('sales.index');
+Route::get('/sales/{id}', [PenjualanController::class, 'show'])->name('sales.show');
 
 // Rute untuk AHP
 Route::get('/ahp', [AHPController::class, 'index'])->name('ahp.index');
