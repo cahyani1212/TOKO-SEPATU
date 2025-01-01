@@ -8,11 +8,12 @@
         <p class="text-center text-gray-300 mt-2">Pantau stok barang dengan mudah dan cepat!</p>
     </div>
 
-
-    <h3>Bobot Kriteria (AHP):</h3>
+    <h3>Bobot Kriteria (SAW):</h3>
     <ul class="list-group mb-4">
-        <li class="list-group-item">Jumlah Terjual: <strong>{{ $bobot['total_jumlah'] }}</strong></li>
-        <li class="list-group-item">Harga Jual: <strong>{{ $bobot['total_harga_satuan'] }}</strong></li>
+        <li class="list-group-item">Jumlah Penjualan: <strong>{{ $bobot['total_jumlah'] }}</strong></li>
+        <li class="list-group-item">Harga: <strong>{{ $bobot['total_harga_satuan'] }}</strong></li>
+        <li class="list-group-item">Ukuran: <strong>{{ $bobot['ukuran'] }}</strong></li>
+        <li class="list-group-item">Stok: <strong>{{ $bobot['stok'] }}</strong></li>
     </ul>
 
     <h3>Hasil Perhitungan (SAW):</h3>
@@ -20,10 +21,14 @@
         <thead class="table-dark">
             <tr>
                 <th>Nama Produk</th>
-                <th>Jumlah Terjual</th>
-                <th>Harga Jual</th>
+                <th>Jumlah Penjualan</th>
+                <th>Harga</th>
+                <th>Ukuran</th>
+                <th>Stok</th>
                 <th>Normalisasi Jumlah</th>
                 <th>Normalisasi Harga</th>
+                <th>Normalisasi Ukuran</th>
+                <th>Normalisasi Stok</th>
                 <th>Skor Akhir</th>
             </tr>
         </thead>
@@ -33,15 +38,19 @@
                 <td>{{ $p['nama_brg'] }}</td>
                 <td>{{ $p['total_jumlah'] }}</td>
                 <td>Rp {{ number_format($p['total_harga_satuan'], 2, ',', '.') }}</td>
+                <td>{{ $p['ukuran'] }}</td>
+                <td>{{ $p['stok'] }}</td>
                 <td>{{ round($p['normalisasi_jumlah'], 4) }}</td>
                 <td>{{ round($p['normalisasi_harga'], 4) }}</td>
+                <td>{{ round($p['normalisasi_ukuran'], 4) }}</td>
+                <td>{{ round($p['normalisasi_stok'], 4) }}</td>
                 <td><strong>{{ round($p['skor'], 4) }}</strong></td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
-    <h3>Produk Paling Laris:</h3>
+    <h3>Produk sepatu dengan peminat terbaik:</h3>
     <p><strong>{{ $produk[0]['nama_brg'] }}</strong> dengan skor <strong>{{ round($produk[0]['skor'], 4) }}</strong>.
     </p>
 </div>
