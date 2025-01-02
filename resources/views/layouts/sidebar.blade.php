@@ -54,6 +54,7 @@
             </a>
         </li>
         <li class="mb-4">
+        <form method="POST" action="{{ route('logout') }}" onsubmit="return confirm('Apakah Anda yakin ingin logout?');">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="flex items-center text-white hover:text-red-300 transition-all duration-200">
