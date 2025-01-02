@@ -11,7 +11,7 @@
     <h3>Bobot Kriteria (SAW):</h3>
     <ul class="list-group mb-4">
         <li class="list-group-item">Jumlah Penjualan: <strong>{{ $bobot['total_jumlah'] }}</strong></li>
-        <li class="list-group-item">Harga: <strong>{{ $bobot['total_harga_satuan'] }}</strong></li>
+        <li class="list-group-item">Harga: <strong>{{ $bobot['total_harga'] }}</strong></li>
         <li class="list-group-item">Ukuran: <strong>{{ $bobot['ukuran'] }}</strong></li>
         <li class="list-group-item">Stok: <strong>{{ $bobot['stok'] }}</strong></li>
     </ul>
@@ -37,7 +37,7 @@
             <tr>
                 <td>{{ $p['nama_brg'] }}</td>
                 <td>{{ $p['total_jumlah'] }}</td>
-                <td>Rp {{ number_format($p['total_harga_satuan'], 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($p['total_harga'], 2, ',', '.') }}</td>
                 <td>{{ $p['ukuran'] }}</td>
                 <td>{{ $p['stok'] }}</td>
                 <td>{{ round($p['normalisasi_jumlah'], 4) }}</td>

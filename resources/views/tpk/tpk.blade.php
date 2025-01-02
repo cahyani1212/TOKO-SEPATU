@@ -20,6 +20,8 @@
                     <th class="px-4 py-2 text-left text-gray-600">Nama Produk</th>
                     <th class="px-4 py-2 text-left text-gray-600">Jumlah Terjual</th>
                     <th class="px-4 py-2 text-left text-gray-600">Harga</th>
+                    <th class="px-4 py-2 text-left text-gray-600">ukuran</th>
+                    <th class="px-4 py-2 text-left text-gray-600">stok</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +38,9 @@
 
                     <!-- Menampilkan Total Harga -->
                     <td class="px-4 py-2">{{ number_format($p['total_harga'], 2) }}</td>
+
+                    <td class="px-4 py-2">{{ $p['ukuran'] }}</td>
+                    <td class="px-4 py-2">{{ $p['stok'] }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -44,7 +49,7 @@
         <!-- Tombol Hitung -->
         <form action="{{ route('tpk.ahp') }}" method="GET" class="mt-6">
             @csrf
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">Hitung
-                Produk Terlaris</button>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">Produk
+                sepatu dengan peminat terbaik</button>
         </form>
         @endsection
