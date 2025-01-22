@@ -4,11 +4,11 @@
         <!-- Main Content -->
         <main class=" ">
             <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg mx-auto">
-                <h2 class="text-2xl font-bold mb-6">Tambah Produk</h2>
+                <h2 class="text-2xl font-bold mb-6">Tambah Barang</h2>
                 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
-                        <label for="name" class="block text-black-700">Nama produk</label>
+                        <label for="name" class="block text-black-700">Nama Barang</label>
                         <input type="text" id="name" name="name" class="w-full p-2 border border-blue-500 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
@@ -21,7 +21,7 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label for="deskripsi" class="block text-black-700">Deskripsi Produk</label>
+                        <label for="deskripsi" class="block text-black-700">Deskripsi Barang</label>
                         <input type="text" id="deskripsi" name="deskripsi" class="w-full p-2 border border-blue-500 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
@@ -41,14 +41,14 @@
                         <input type="number" id="harga" name="harga" class="w-full p-2 border border-blue-500 rounded mt-1" required>
                     </div>
                     <div class="mb-4">
-                        <label for="image" class="block text-black-700">Foto produk</label>
+                        <label for="image" class="block text-black-700">Foto Barang</label>
                         <div class="flex items-center">
                             <input type="file" id="image" name="image" class="w-full p-2 border border-blue-500 rounded mt-1">
                             <span class="ml-2 text-black-500"></span>
                         </div>
                     </div>
                     <div class="flex justify-center">
-                        <button type="submit" class="w-1/2 bg-blue-700 text-white p-2 rounded mt-4">TAMBAH PRODUK</button>
+                        <button type="submit" class="w-1/2 bg-blue-700 text-white p-2 rounded mt-4">TAMBAH BARANG</button>
                     </div>
                 </form>
             </div>

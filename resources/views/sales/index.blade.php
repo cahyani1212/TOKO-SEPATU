@@ -1,6 +1,11 @@
 @extends('layouts.layout')
 
 @section('content')
+<div class="p-6">
+<div class="bg-gradient-to-r from-red-700 to-gray-900 text-white p-6 rounded-lg mb-8 shadow-xl">
+                <h1 class="text-3xl font-extrabold text-center">Selamat Datang di Upik Cabon Store</h1>
+                <p class="text-center text-gray-300 mt-2">Pantau stok barang dengan mudah dan cepat!</p>
+            </div>
     <div class="p-6">
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h2 class="text-2xl font-bold mb-6">Daftar Penjualan</h2>

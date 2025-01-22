@@ -7,7 +7,7 @@
         <!-- Main Content: Edit Form -->
         <div class=" p-6">
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold mb-6">Edit Produk</h2>
+                <h2 class="text-2xl font-bold mb-6">Edit Barang</h2>
 
                 <!-- Tampilkan pesan sukses jika ada -->
                 @if (session('success'))
@@ -32,7 +32,7 @@
                     @method('PUT')
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-gray-700">Nama Produk</label>
+                            <label class="block text-gray-700">Nama Barang</label>
                             <input type="text" name="nama_produk" value="{{ old('name', $product->nama_produk) }}" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                         </div>
                         <div>
@@ -68,7 +68,7 @@
                             <input type="number" name="price" value="{{ old('price', $product->price) }}" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                         </div>
                         <div>
-                            <label class="block text-gray-700">Foto Produk</label>
+                            <label class="block text-gray-700">Foto Barang</label>
                             <input type="file" name="foto_produk" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
                             @if ($product->foto_produk)
                                 <img src="{{ asset('images/' . $product->foto_produk) }}" alt="{{ $product->name }}" class="mt-2 rounded-md" style="max-width: 100px;">
